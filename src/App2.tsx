@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import iaesteLogo from "./assets/other/iaesteLogo.ico";
-import viteLogo from "/vite.svg";
+import Intro from "./Intro.tsx";
 // import "./App2.css";
 import "./index.css";
+
+const labels = [
+  "Struktura IAESTE",
+  "Grupy robocze",
+  "Czym jest Swipe&Join?",
+  "Twoja aktywność",
+];
 
 const AnimatedLogo = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 1000); // opóźnienie
+    const timer = setTimeout(() => setVisible(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -17,9 +24,14 @@ const AnimatedLogo = () => {
     <img
       src={iaesteLogo}
       alt="IAESTE Logo"
-      className={`w-auto h-auto transition-opacity duration-1000 ease-in-out ${
-        visible ? "opacity-100" : "opacity-0"
-      }`}
+      className={`w-[40vh] h-[20vh] transition-all duration-1000 ease-out
+        absolute left-1/2 transform -translate-x-1/2
+        ${
+          visible
+            ? "top-1/2 -translate-y-1/2 opacity-100"
+            : "top-[100vh] opacity-0"
+        }
+      `}
     />
   );
 };
