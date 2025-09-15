@@ -2,6 +2,9 @@
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 module.exports = {
+  generateBreakpoints,
+  applyValuesToBreakpoints,
+
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], // Vite potrzebuje ścieżek do plików w projekcie
   theme: {
     extend: {
@@ -17,7 +20,7 @@ module.exports = {
 };
 
 //Creates breakpoints exponentially
-function generateBreakpoints(base = 426, factor = 0.85, count = 4) {
+function generateBreakpoints(base = 426, factor = 0.85, count = 20) {
   const breakpoints = {};
   for (let i = 0; i < count; i++) {
     const width = Math.round(base * Math.pow(factor, i));
@@ -25,6 +28,29 @@ function generateBreakpoints(base = 426, factor = 0.85, count = 4) {
   }
   return breakpoints;
 }
+
+// Put breakpoints to the classList of the given selector
+//by default it adds margin-top classes with values from 1 to 20 for each of 20 breakpoints
+function applyValuesToBreakpoints(
+  parameter = "mt-",
+  values = Array.from({ length: 20 }, (_, i) => i + 1),
+  base = 426,
+  factor = 0.85,
+  count = 20
+) {
+  const breakpoints = generateBreakpoints(base, factor, count);
+  const classList = [];
+
+  Object.keys(breakpoints).forEach((key, index) => {
+    const value = values[index] ?? index + 1;
+    classList.push(`${key}:${parameter}${value}`);
+  });
+
+  return classList;
+}
+
+// Przykład użycia:
+// applyBreakpointClasses("#my-element"); // automatycznie dodaje tiny1..tiny20
 
 //Adds chosen parametres to the breakpoints with given values
 function generateResponsiveClasses(

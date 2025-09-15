@@ -1,8 +1,19 @@
 import iaesteLogo from "./assets/other/iaesteLogo.ico";
 import arrow from "./assets/other/angle-double-small-right.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Intro({ labels }: { labels: string[][] }) {
+  const [parsedLabels, setParsedLabels] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    // Dynamiczny import pliku .cjs
+    (async () => {
+      const mod = await import("../tailwind.config.cjs"); // <- dynamiczny import pliku .cjs
+      const parsed = mod.default.parseLabels(labels); // <- użycie funkcji `parseLabels`
+      setParsedLabels(parsed);
+    })();
+  }, [labels]);
+
   return (
     <div className="flex flex-col  items-center gap-x-1 w-screen h-screen bg-white font-pop">
       <div className="h-screen w-[50vw] md:mb-[7vh] md:mt-[0vh] sm:mb-[0vh] sm:mt-[8vh] little:mt-[10vh] tiny:mt-[20vh] vtiny:mt-[30vh] v2tiny:mt-[16rem] flex flex-col justify-center   bg-white text-[5vh] gap-y-5">
