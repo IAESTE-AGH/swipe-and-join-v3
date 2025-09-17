@@ -1,15 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+import * as config from "./src/utils/tailwindUtils.cjs";
+
 import { fontFamily } from "tailwindcss/defaultTheme";
+// You might still import generateBreakpoints here if you use it for screens
+// import { generateBreakpoints } from './src/utils/tailwindUtils'; // Adjust path as needed
 
-module.exports = {
-  generateBreakpoints,
-  applyValuesToBreakpoints,
-
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], // Vite potrzebuje ścieżek do plików w projekcie
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       screens: {
-        ...generateBreakpoints(426, 0.85, 20),
+        ...config.generateBreakpoints(426, 0.85, 20),
+        // ...config.generateBreakpoints(426, 0.85, 20),
       },
       fontFamily: {
         pop: ["Poppins", "sans-serif"],
@@ -18,53 +20,3 @@ module.exports = {
   },
   plugins: [],
 };
-
-//Creates breakpoints exponentially
-function generateBreakpoints(base = 426, factor = 0.85, count = 20) {
-  const breakpoints = {};
-  for (let i = 0; i < count; i++) {
-    const width = Math.round(base * Math.pow(factor, i));
-    breakpoints[`tiny${i + 1}`] = `${width}px`;
-  }
-  return breakpoints;
-}
-
-// Put breakpoints to the classList of the given selector
-//by default it adds margin-top classes with values from 1 to 20 for each of 20 breakpoints
-function applyValuesToBreakpoints(
-  parameter = "mt-",
-  values = Array.from({ length: 20 }, (_, i) => i + 1),
-  base = 426,
-  factor = 0.85,
-  count = 20
-) {
-  const breakpoints = generateBreakpoints(base, factor, count);
-  const classList = [];
-
-  Object.keys(breakpoints).forEach((key, index) => {
-    const value = values[index] ?? index + 1;
-    classList.push(`${key}:${parameter}${value}`);
-  });
-
-  return classList;
-}
-
-// Przykład użycia:
-// applyBreakpointClasses("#my-element"); // automatycznie dodaje tiny1..tiny20
-
-//Adds chosen parametres to the breakpoints with given values
-function generateResponsiveClasses(
-  param = "mt-",
-  values = [],
-  breakpoints = []
-) {
-  const classes = {};
-  for (let i = 0; i < breakpoints.length; i++) {
-    const bp = breakpoints[i];
-    const value = values[i];
-    if (bp && value !== undefined) {
-      classes[bp] = `${bp}:${param}[${value}]`;
-    }
-  }
-  return classes;
-}

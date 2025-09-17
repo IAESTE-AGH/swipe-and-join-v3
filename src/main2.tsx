@@ -10,6 +10,10 @@ const MainComponent = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIntro(true);
+      console.log("Switching to Intro component");
+      console.log("Intro component should now be visible");
+
+      console.log("Headings for Intro:", headings);
     }, 2500);
     return () => clearTimeout(timer);
   }, []);
@@ -32,6 +36,9 @@ const MainComponent = () => {
       "Po kliknięciu kontynuuj, odpowiesz na kilka pytań, a następie poznasz odpowiednie grupy robocze oraz wybierzesz te, które najbardziej do Ciebie pasują",
     ],
   ];
+
+  console.log("Render MainComponent, showIntro:", showIntro);
+  console.log("Headings:", headings);
 
   return (
     <React.StrictMode>

@@ -5,13 +5,6 @@ import Intro from "./Intro.tsx";
 // import "./App2.css";
 import "./index.css";
 
-const labels = [
-  "Struktura IAESTE",
-  "Grupy robocze",
-  "Czym jest Swipe&Join?",
-  "Twoja aktywność",
-];
-
 const AnimatedLogo = () => {
   const [visible, setVisible] = useState(false);
 
