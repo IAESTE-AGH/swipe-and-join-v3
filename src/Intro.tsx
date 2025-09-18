@@ -13,31 +13,36 @@ function exponentialSequence(n: number, a = 8, b = 1.3): number {
   return a * Math.pow(b, n);
 }
 
-let valuesMt = Array.from({ length: 20 }, (_, i) =>
-  Math.round(exponentialSequence(i))
-);
-
 function Intro({ labels }: Props) {
   const [classNames, setClassNames] = useState<string[]>([]);
+  const [logoClassNames, setLogoClassNames] = useState<string[]>([]);
 
   useEffect(() => {
-    const generatedClassesMt = config.applyValuesToBreakpoints("mt-", valuesMt);
+    const generatedClassesMt = config.applyValuesToBreakpoints(
+      "mt-",
+      config.valuesMt
+    );
     console.log(generatedClassesMt);
     setClassNames(generatedClassesMt);
+    const generatedLogoClasses = config.applyValuesToBreakpoints(
+      "h-",
+      config.valuesH
+    );
+    setLogoClassNames(generatedLogoClasses);
   }, []); //useEffect runs once
 
   return (
     <div className="flex flex-col  items-center gap-x-1 w-screen h-screen bg-white font-pop">
       <div
         id="content-align"
-        className={`h-screen w-[50vw] md:mb-[7vh] md:mt-[0vh] sm:mb-[0vh] sm:mt-[8vh] ${classNames.join(
+        className={`h-screen w-[50vw] md:mb-[7vh] md:mt-[0vh] sm:mb-[3vh] mb-[0vh]  ${classNames.join(
           " "
         )} flex flex-col justify-center   bg-white text-[5vh] gap-y-5`}
       >
         <div className="flex justify-center items-center">
           <img
             src={iaesteLogo}
-            className="md:h-[8vh] sm:w-1/4 sm:h-[7vh] little:h-[6vh] little:w-1/8 tiny:h-[6vh] tiny:w-1/16 vtiny:h-[5.5vh] vtiny:w-5/20 v2tiny:h-[5vh] v2tiny:w-1/20"
+            className={`md:h-[8vh]  sm:h-[7vh]  ${logoClassNames.join(" ")}`}
             alt=""
           />
         </div>
@@ -57,7 +62,7 @@ function Intro({ labels }: Props) {
           );
         })}
         <div className="flex justify-center items-center mt-[5vh]">
-          <button className="flex justify-center items-center bg-[#5cc8ee] mt-[3vh] font-medium text-white h-[6vh] w-[35vw] text-lg rounded-full focus:outline-none focus:border-none">
+          <button className="flex justify-center items-center bg-[#5cc8ee] md:mt-[3vh] sm:mt-[0vh] font-medium text-white h-[6vh] w-[35vw] text-lg rounded-full focus:outline-none focus:border-none">
             Zaczynamy!
           </button>
         </div>
