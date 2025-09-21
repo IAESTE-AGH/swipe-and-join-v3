@@ -4,7 +4,7 @@ export default {
   generateResponsiveClasses,
 };
 
-import { valuesMt, valuesH } from "../../tailwind.config.cjs";
+//import { valuesMt, valuesH } from "../../tailwind.config.cjs";
 
 //Creates breakpoints exponentially
 export function generateBreakpoints(base = 426, factor = 0.85, count = 20) {
@@ -24,7 +24,7 @@ export function generateBreakpoints(base = 426, factor = 0.85, count = 20) {
 //by default it adds margin-top classes with values from 1 to 20 for each of 20 breakpoints
 export function applyValuesToBreakpoints(
   parameter = "mt-",
-  values = valuesMt,
+  values = Array.from({ length: 20 }, (_, i) => i + 1), // domyślnie: [1, 2, ..., 20],
   base = 622,
   factor = 0.965,
   count = 20,
@@ -47,7 +47,7 @@ export function applyValuesToBreakpoints(
 //Adds chosen parametres to the breakpoints with given values
 export function generateResponsiveClasses(
   param = "mt-",
-  values = [],
+  values = Array.from({ length: 20 }, (_, i) => i + 1), // domyślnie: [1, 2, ..., 20],
   breakpoints = [],
   unit = "vh"
 ) {
