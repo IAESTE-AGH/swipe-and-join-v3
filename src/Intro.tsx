@@ -1,7 +1,8 @@
 import iaesteLogo from "./assets/other/iaesteLogo.ico";
 import arrow from "./assets/other/angle-double-small-right.png";
 import React, { useEffect, useState } from "react";
-import config from "../src/utils/tailwindUtils.cjs";
+import utils from "../src/utils/tailwindUtils.cjs";
+import config from "../tailwind.config.cjs";
 
 type Props = {
   labels: string[][];
@@ -18,16 +19,18 @@ function Intro({ labels }: Props) {
   const [logoClassNames, setLogoClassNames] = useState<string[]>([]);
 
   useEffect(() => {
-    const generatedClassesMt = config.applyValuesToBreakpoints(
+    const generatedClassesMt = utils.applyValuesToBreakpoints(
       "mt-",
       config.valuesMt
     );
     console.log(generatedClassesMt);
     setClassNames(generatedClassesMt);
-    const generatedLogoClasses = config.applyValuesToBreakpoints(
+    const generatedLogoClasses = utils.applyValuesToBreakpoints(
       "h-",
       config.valuesH
     );
+    console.log("Logo classes:");
+    console.log(generatedLogoClasses);
     setLogoClassNames(generatedLogoClasses);
   }, []); //useEffect runs once
 

@@ -4,9 +4,7 @@ export default {
   generateResponsiveClasses,
 };
 
-let valuesMt = [
-  7, 6, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-];
+import { valuesMt, valuesH } from "../../tailwind.config.cjs";
 
 //Creates breakpoints exponentially
 export function generateBreakpoints(base = 426, factor = 0.85, count = 20) {
@@ -18,9 +16,9 @@ export function generateBreakpoints(base = 426, factor = 0.85, count = 20) {
   return breakpoints;
 }
 //generating breakpoints for tailwind.config
-const screens = generateBreakpoints(622, 0.965, 20);
+// const screens = generateBreakpoints(622, 0.965, 20);
 
-export { screens, valuesMt, valuesH }; // I'm gonna add here all the values arrays
+// export { screens }; // I'm gonna add here all the values arrays
 
 // Put breakpoints to the classList of the given selector
 //by default it adds margin-top classes with values from 1 to 20 for each of 20 breakpoints
