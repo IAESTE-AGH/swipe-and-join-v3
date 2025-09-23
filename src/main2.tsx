@@ -3,17 +3,16 @@ import ReactDOM from "react-dom/client";
 import Intro from "./Intro.tsx";
 import App2 from "./App2.tsx";
 import "./index.css";
+import CardPages from "./cardPages.tsx";
 
 const MainComponent = () => {
-  const [showIntro, setShowIntro] = useState(false);
+  //const [showIntro, setShowIntro] = useState(false);
+  const [step, setStep] = useState<"loading" | "intro" | "cards">("loading");
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowIntro(true);
-      console.log("Switching to Intro component");
-      console.log("Intro component should now be visible");
-
-      console.log("Headings for Intro:", headings);
+      //setShowIntro(true);
+      setStep("intro");
     }, 2500);
     return () => clearTimeout(timer);
   }, []);
@@ -37,12 +36,17 @@ const MainComponent = () => {
     ],
   ];
 
-  console.log("Render MainComponent, showIntro:", showIntro);
+  //console.log("Render MainComponent, showIntro:", showIntro);
   console.log("Headings:", headings);
 
   return (
     <React.StrictMode>
-      {showIntro ? <Intro labels={headings} /> : <App2 />}
+      {/* {showIntro ? <Intro labels={headings} /> : <App2 />} */}
+      {step === "loading" && <App2 />}
+      {step === "intro" && (
+        <Intro labels={headings} onStart={() => setStep("cards")} />
+      )}
+      {step === "cards" && <CardPages />}
     </React.StrictMode>
   );
 };

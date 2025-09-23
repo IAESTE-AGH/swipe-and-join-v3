@@ -11,6 +11,7 @@ console.log("Values valuesH:", values.valuesH);
 type Props = {
   labels: string[][];
   //enables adding headings to the page dynamically (ex. "Struktura IAESTE", "IAESTE dzieli się na 6 grup roboczych, ...")
+  onStart: () => void;
 };
 
 //generating values for mt- in div id='content-align'
@@ -18,7 +19,7 @@ function exponentialSequence(n: number, a = 8, b = 1.3): number {
   return a * Math.pow(b, n);
 }
 
-function Intro({ labels }: Props) {
+function Intro({ labels, onStart }: Props) {
   const [classNames, setClassNames] = useState<string[]>([]);
   const [logoClassNames, setLogoClassNames] = useState<string[]>([]);
 
@@ -75,7 +76,10 @@ function Intro({ labels }: Props) {
           );
         })}
         <div className="flex justify-center items-center tiny5:mt-[5vh]">
-          <button className=" flex justify-center items-center bg-[#5cc8ee] md:mt-[3vh] sm:mt-[0vh] font-medium text-white h-[6vh] tiny18:w-[35vw] w-[45vw] tiny15:text-lg text-base rounded-full focus:outline-none focus:border-none">
+          <button
+            onClick={onStart}
+            className=" flex justify-center items-center bg-[#5cc8ee] md:mt-[3vh] sm:mt-[0vh] font-medium text-white h-[6vh] tiny18:w-[35vw] w-[45vw] tiny15:text-lg text-base rounded-full focus:outline-none focus:border-none"
+          >
             Zaczynamy!
           </button>
         </div>
