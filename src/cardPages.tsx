@@ -4,6 +4,8 @@ import Card from "./components/card.tsx";
 const CardPages = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
   const cards = [
     {
       title: "Card 1",
@@ -24,21 +26,50 @@ const CardPages = () => {
 
   const nextPage = () => {
     setCurrentPage((prev) => (prev < cards.length - 1 ? prev + 1 : prev));
+    setActiveIdx(null); // Reset selection when moving to the next page
   };
 
   const prevPage = () => {
     setCurrentPage((prev) => (prev > 0 ? prev - 1 : prev));
+    setActiveIdx(null); // Reset selection when moving to the previous page
   };
 
   return (
     <div>
-      <Card {...cards[currentPage]} />
-      <div className="flex justify-between mt-4">
-        <button onClick={prevPage} disabled={currentPage === 0}>
-          Previous
+      <div className="flex items-center justify-center flex-col  gap-y-10 h-screen">
+        <Card
+          {...cards[currentPage]}
+          activeIdx={activeIdx}
+          setActiveIdx={setActiveIdx}
+        />
+        <button
+          onClick={nextPage}
+          disabled={activeIdx === null}
+          className={`w-[50vw] py-1 rounded-full font-semibold transition-colors duration-200 text-2xl py-2
+          ${
+            activeIdx === null
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#5cc8ee] text-white "
+          }`}
+        >
+          Kontynuuj
         </button>
-        <button onClick={nextPage} disabled={currentPage === cards.length - 1}>
-          Next
+      </div>
+
+      <div className="absolute top-0 left-0">
+        <button onClick={prevPage} disabled={currentPage === 0}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ width: "60px", height: "60px" }}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#d1d5db"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
         </button>
       </div>
     </div>
